@@ -2,19 +2,18 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const NavBar = [
-    { title: "Home", path: "/" },
+    { title: "Dashboard", path: "/" },
     { title: "Report Lost Items", path: "/Lost" },
     { title: "Report Found Items", path: "/Found" },
-    { title: "Login", path: "/Login" },
-    { title: "Signup", path: "/Signup" },
   ];
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-      <div className="container">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-lg fixed-top py-2">
+      <div className="container d-flex align-items-center">
         {/* Logo Section */}
-        <NavLink className="navbar-brand" to="/">
-          <img src="/logo.png" alt="Logo" width="50" />
+        <NavLink className="navbar-brand fw-bold text-primary" to="/">
+          <img src="/logo.png" alt="Logo" width="50" className="me-2" />
+          Lost & Found
         </NavLink>
 
         {/* Toggle Button for Mobile */}
@@ -32,13 +31,13 @@ const Header = () => {
 
         {/* Navigation Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex gap-3">
+          <ul className="navbar-nav ms-auto d-flex  gap-4">
             {NavBar.map((item) => (
               <li key={item.title} className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
-                    `nav-link nav-hover ${
-                      isActive ? "fw-bold text-primary" : "text-dark"
+                    `nav-link fw-semibold px-3 py-2 rounded position-relative ${
+                      isActive ? "text-primary active-link " : "text-dark"
                     }`
                   }
                   to={item.path}
@@ -47,6 +46,23 @@ const Header = () => {
                 </NavLink>
               </li>
             ))}
+            {/* Login & Signup Buttons */}
+            <li className="nav-item">
+              <NavLink
+                to="/Login"
+                className="btn btn-outline-primary px-4 py-2 fw-bold"
+              >
+                Login
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/Signup"
+                className="btn btn-primary px-4 py-2 fw-bold"
+              >
+                Signup
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

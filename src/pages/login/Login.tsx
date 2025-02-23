@@ -6,22 +6,30 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setTimeout(() => {});
+    setError("");
 
     //   Validation and regex
-    if (!email || !password) {
-      setError("Both fields are required!");
-      return;
-    }
+    if (!email) return setError("Please enter email address.");
+    if (!password) return setError("Please enter password.");
 
     // Authentication which will replace with Backend API
     if (email == "test@example.com" && password == "password123") {
-      alert("Login Successful!");
-      navigate("/");
+      setSuccess("Login Successful!");
+      setEmail("");
+      setPassword("");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } else {
       setError("Invalid Email or Password!!!");
+      setEmail("");
+      setPassword("");
     }
   };
 
@@ -37,10 +45,11 @@ const Login = () => {
     <div>
       <Header />
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="card p-4 shadow" style={{ width: "450px" }}>
+        <div className="card p-4 shadow-lg" style={{ width: "450px" }}>
           <h3 className="text-center mb-4">Login</h3>
 
           {error && <div className="alert alert-danger">{error}</div>}
+          {success && <div className="alert alert-info">{success}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -64,28 +73,28 @@ const Login = () => {
               />
             </div>
             {/* Login Button */}
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100 shadow">
               Login
             </button>
           </form>
 
           {/* \Divider */}
-          <div className="text-center my-3">
+          <div className="text-center mt-4">
             <hr />
             <span
               style={{
                 position: "relative",
-                top: "-15px",
+                top: "-30px",
                 background: "#fff",
                 padding: "0 10px",
               }}
             >
-              OR
+              or login with
             </span>
           </div>
 
           {/* Social Login Buttons */}
-          <div className="d-grid gap-2">
+          <div className="d-grid gap-2 ">
             <button
               onClick={handleGoogleLogin}
               className="btn btn-outline-dark d-flex align-items-center justify-content-center"

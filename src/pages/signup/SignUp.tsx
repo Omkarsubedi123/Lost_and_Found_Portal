@@ -23,12 +23,27 @@ const SignUp = () => {
 
     if (email === "test@example.com" && password === "password123") {
       setError("Email already in use!");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     } else {
       setSuccess("Signup Successful! Redirecting....");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
       setTimeout(() => {
         window.location.href = "/Login";
       }, 2000);
     }
+  };
+  // For Google and facebook alerts.
+  const handleGooglLogin = () => {
+    alert("Google Login Clocked! (Implement auth here)");
+  };
+  const handleFacebookLogin = () => {
+    alert("Facebook Login Clocked! (Implement auth here)");
   };
 
   return (
@@ -36,8 +51,8 @@ const SignUp = () => {
       <Header />
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div
-          className="card p-5 shadow"
-          style={{ width: "400px", borderRadius: "10px", background: "#fff" }}
+          className="card p-5 shadow-lg"
+          style={{ width: "450px", borderRadius: "10px", background: "#fff" }}
         >
           <h2 className="text-center mb-4">Sign Up</h2>
 
@@ -88,16 +103,29 @@ const SignUp = () => {
             </div>
             {/* Sign up Button */}
 
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100 shadow">
               Sign up
             </button>
           </form>
-          <div>
+          <div className="text-center pt-4">
             <hr />
+            <span
+              style={{
+                position: "relative",
+                top: "-30px",
+                background: "#fff",
+                padding: "0 10px",
+              }}
+            >
+              or sign up with
+            </span>
           </div>
-          <div className="text-center mt-3">
-            <p>Or sign up with</p>
-            <button className="btn btn-outline-dark w-100 mb-2 d-flex align-items-center justify-content-center">
+          <div className="text-center">
+            {/* <p>Or</p> */}
+            <button
+              className="btn btn-outline-dark w-100 mb-2 d-flex align-items-center justify-content-center"
+              onClick={handleGooglLogin}
+            >
               <img
                 className="me-2"
                 src="https://img.icons8.com/color/20/000000/google-logo.png"
@@ -105,7 +133,10 @@ const SignUp = () => {
               />
               Continue with Google
             </button>
-            <button className="btn btn-outline-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+            <button
+              className="btn btn-outline-primary w-100 mb-2 d-flex align-items-center justify-content-center"
+              onClick={handleFacebookLogin}
+            >
               <img
                 className="me-2"
                 src="https://img.icons8.com/color/20/000000/facebook-new.png"
@@ -117,7 +148,11 @@ const SignUp = () => {
           <div className="text-center mt-3">
             <p>
               Already have an account?{" "}
-              <a style={{ textDecoration: "none" }} href="/Login">
+              <a
+                className="text-primary fw-bold"
+                style={{ textDecoration: "none" }}
+                href="/Login"
+              >
                 Login
               </a>
             </p>
