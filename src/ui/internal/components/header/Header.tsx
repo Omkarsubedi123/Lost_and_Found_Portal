@@ -8,7 +8,7 @@ const Header = () => {
   ];
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-lg fixed-top py-2">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow  fixed-top">
       <div className="container d-flex align-items-center">
         {/* Logo Section */}
         <NavLink className="navbar-brand fw-bold text-primary" to="/">
