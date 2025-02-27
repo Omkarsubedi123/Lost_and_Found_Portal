@@ -11,16 +11,28 @@ const ReportLost = () => {
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  // Loading visualization adding
+  const [loading, setLoading] = useState(false);
+  // Regex Validation for Contact information.
+  const phoneRegex = /^[0-9]{10}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
     setTimeout(() => {});
     setError("");
     // Validation and regex
     if (!itemname) return setError("Please enter item name.");
-    if (!category) return setError("Please select category.");
+    if (!category || category === "")
+      return setError("Please select category.");
     if (!location) return setError("Please enter location.");
     if (!date) return setError("Please enter date.");
-    if (!contact) return setError("Please enter contact information.");
+    if (!phoneRegex.test(contact) && !emailRegex.test(contact)) {
+      return setError("Enter a valid phone number of email.");
+    }
     if (!description) return setError("Please enter description.");
     // Authentication which will replace with Backend API
     setSuccess("Lost Item Reported Successfully!");
@@ -35,6 +47,10 @@ const ReportLost = () => {
       // navigate("/");
     }, 1000);
   };
+  const handleImageUpload = (e: any) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
   return (
     <>
       <Header />
@@ -43,8 +59,8 @@ const ReportLost = () => {
           style={{ paddingTop: "80px" }}
           className="d-flex justify-content-center align-items-center vh-100"
         >
-          <div className="card shadow-lg">
-            <h3>🔍 Report a Lost Item</h3>
+          <div style={{ width: "500px" }} className="card shadow-lg p-3">
+            <h3 className="text-center mt-4 mb-4">🔍 Report a Lost Item</h3>
             <form onSubmit={handleSubmit} className="p-4">
               {/* Error and success handle */}
               {error && <div className="alert alert-danger">{error}</div>}
@@ -68,7 +84,9 @@ const ReportLost = () => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option>Select Category</option>
+                  <option value="" disabled selected>
+                    Select Category
+                  </option>
                   <option>Wallet</option>
                   <option>Mobile</option>
                   <option>Laptop</option>
@@ -110,8 +128,8 @@ const ReportLost = () => {
                 <input
                   className="form-control"
                   type="file"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  accept="image/*"
+                  onChange={handleImageUpload}
                 />
               </div>
               <div className="mb-3">
@@ -124,7 +142,12 @@ const ReportLost = () => {
                 />
               </div>
               {/* Submit Button */}
-              <button className="btn btn-primary w-100 shadow">Submit</button>
+              <button
+                className="btn btn-primary w-100 shadow"
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Submit"}
+              </button>
             </form>
           </div>
         </div>
