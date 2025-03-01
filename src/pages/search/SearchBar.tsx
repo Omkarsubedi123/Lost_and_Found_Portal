@@ -37,6 +37,13 @@ const SearchBar = () => {
       location: "Kathmandu",
       date: "2025-02-18",
     },
+    {
+      id: 6,
+      title: "Found Bag",
+      category: "Bag",
+      location: "Pokhara",
+      date: "2025-02-18",
+    },
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -119,19 +126,32 @@ const SearchBar = () => {
       {/* Display Filtered Results */}
       <div className="mt-4">
         <h4 className="text-center">📌 Search Results</h4>
-        <ul className="list-group">
-          {filterItems.length > 0 ? (
-            filterItems.map((item) => (
-              <li key={item.id} className="list-group-item">
-                <strong>{item.title}</strong> - {item.location} ({item.date})
-              </li>
-            ))
-          ) : (
-            <li className="list-group-item text-center text-danger">
-              ❌ No items found
-            </li>
-          )}
-        </ul>
+        <div
+          className="card p-3 shadow-lg"
+          style={{
+            maxHeight: "250px",
+            overflowY: filterItems.length > 3 ? "scroll" : "hidden",
+          }}
+        >
+          <ul className="list-group">
+            {filterItems.length > 0
+              ? filterItems.map((item) => (
+                  <li key={item.id} className="list-group-item">
+                    <strong>{item.title}</strong> - {item.location} ({item.date}
+                    )
+                  </li>
+                ))
+              : Items.slice(0, 3).map((item) => (
+                  <li
+                    key={item.id}
+                    className="list-group-item text-center text-danger"
+                  >
+                    <strong>{item.title}</strong> - {item.location} ({item.date}
+                    )
+                  </li>
+                ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
