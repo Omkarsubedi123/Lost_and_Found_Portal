@@ -128,6 +128,7 @@ const ReportFound = () => {
                   className="form-control"
                   type="file"
                   accept="image/*"
+                  // value={image}
                   onChange={handleImageUpload}
                 />
               </div>
