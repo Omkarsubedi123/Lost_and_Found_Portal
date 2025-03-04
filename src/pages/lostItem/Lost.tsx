@@ -49,7 +49,10 @@ const ReportLost = () => {
   };
   const handleImageUpload = (e: any) => {
     const file = e.target.files[0];
-    setImage(file);
+    if (file) {
+      const imageurl = URL.createObjectURL(file);
+      setImage(imageurl);
+    }
   };
   return (
     <>
@@ -129,10 +132,19 @@ const ReportLost = () => {
                   className="form-control"
                   type="file"
                   accept="image/*"
-                  value={image}
                   onChange={handleImageUpload}
                 />
               </div>
+              {image && (
+                <div className="mb-3 text-center">
+                  <img
+                    src={image}
+                    alt="Preview"
+                    className="image-fluid rounded shadow"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                </div>
+              )}
               <div className="mb-3">
                 <label>Description</label>
                 <textarea
